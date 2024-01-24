@@ -10,18 +10,20 @@ pub fn get_celsius()  {
             let mut choices: Vec<String> = Vec::new();
             choices.push("Fahrenheit".to_string());
             choices.push("Kelvin".to_string());
+            let c = Celsius::new(float_amount);
             let mut temp_select = Select::new("Select a temperature type: ", choices).prompt();
             match temp_select {
                 Ok(temp) => {
                     match temp.as_str() {
                         "Fahrenheit" => {
-                            let result = celsius_to_fahrenheit(&am.parse::<f64>().unwrap());
-                            let out = Celsius {
-                                temp: float_amount,
-                                as_fahrenheit: celsius_to_fahrenheit(&float_amount),
-                                as_kelvin: celsius_to_kelvin(&float_amount),
-                            };
-                            println!("test: {}", out.temp);
+                            // let result = celsius_to_fahrenheit(&am.parse::<f64>().unwrap());
+                            // let out = Celsius {
+                            //     temp: float_amount,
+                            //     as_fahrenheit: celsius_to_fahrenheit(&float_amount),
+                            //     as_kelvin: celsius_to_kelvin(&float_amount),
+                            // };
+                            // println!("test: {}", out.temp);
+                            println!("{} degrees Celsius is {} degrees Fahrenheit", c.temp, c.show_fahrenheit());
                         },
                         "Kelvin" => {
                             let result = celsius_to_kelvin(&am.parse::<f64>().unwrap());
