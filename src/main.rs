@@ -1,14 +1,10 @@
 use inquire::Text;
-
+#[path = "Conversions/Temperature/InitialData.rs"] mod TempType;
 enum Conversion {
     Temperature,
     Length,
 }
 
-struct Fahrenheit {
-    temp: f64,
-}
-
 fn main() {
-
+    TempType::get_data_type();
 }
