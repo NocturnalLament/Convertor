@@ -5,15 +5,15 @@ struct KelvinUnit {
     as_fahrenheit: f64,
     as_celsius: f64,
 }
-
+//Convert to fahrenheit
 fn kelvin_to_fahrenheit(temp: &f64) -> f64 {
     (temp - 273.15) * 9.0 / 5.0 + 32.0
 }
-
+//Convert to celsius
 fn kelvin_to_celsius(temp: &f64) -> f64 {
     temp - 273.15
 }
-
+//Kelvin Struct
 impl KelvinUnit {
     fn new(temp: f64) -> Self {
         Self {
@@ -22,11 +22,11 @@ impl KelvinUnit {
             as_celsius: kelvin_to_celsius(&temp),
         }
     }
-
+    //Show fahrenheit
     fn show_fahrenheit(&self) -> f64 {
         self.as_fahrenheit
     }
-
+    //Show celsius
     fn show_celsius(&self) -> f64 {
         self.as_celsius
     }

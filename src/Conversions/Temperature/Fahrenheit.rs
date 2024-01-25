@@ -15,6 +15,37 @@ impl Fahrenheit {
             as_kelvin: fahrenheit_to_kelvin(temp),
         }
     }
+
+    fn show_kelvin(&self) {
+        println!("{} degrees Fahrenheit is {} degrees Kelvin!", self.temp, self.as_kelvin);
+    }
+
+    fn show_celsius(&self) {
+        println!("{} degrees Fahrenheit is {} degrees Celsius!", self.temp, self.as_celsius);
+    }
+}
+
+fn fahrenheit_prompt(f: &Fahrenheit) {
+    let mut choices: Vec<String> = Vec::new();
+            choices.push("Celsius".to_string());
+            choices.push("Kelvin".to_string());
+    let mut temp_select = Select::new("Select a temperature type: ", choices).prompt();
+    match temp_select {
+        Ok(temp) => {
+            match temp.as_str() {
+                "Celsius" => {
+                    f.show_celsius();
+                },
+                "Kelvin" => {
+                    f.show_kelvin();
+                },
+                &_ => todo!(),
+            }
+        },
+        Err(_) => {
+            println!("Error")
+        }
+    }
 }
 
 pub fn conversion_from() {
@@ -22,44 +53,25 @@ pub fn conversion_from() {
     TypesOfTemp.push("Celsius");
     TypesOfTemp.push("Kelvin");
     //Prompt user for temperature to convert to
-    let mut temp_select = Select::new("Select a temperature type: ", TypesOfTemp).prompt();
-    match temp_select {
-        Ok(temp) => {
-            match temp {
-                "Celsius" => {
-                    let amount = Text::new("How many degrees Celsius? ").prompt();
-                    match amount {
-                        Ok(am) => {
-                            let am: f64 = am.parse().unwrap();
-                            let result = celsius_to_fahrenheit(&am);
-                            println!("{} degrees Celsius is {} degrees Fahrenheit", am, result);
-                        },
-                        Err(_) => {
-                            println!("Error")
-                        }
-                    }
+    let mut fahrenheit_in = Text::new("How many degrees Fahrenheit? ").prompt();
+    match fahrenheit_in {
+        Ok(am) => {
+            match am.parse::<f64>() {
+                Ok(am_as_f) => {
+                    let f = Fahrenheit::new(am_as_f);
+                    fahrenheit_prompt(&f);
                 },
-                "Kelvin" => {
-                    let amount = Text::new("How many degrees Kelvin? ").prompt();
-                    match amount {
-                        Ok(am) => {
-                            let am: f64 = am.parse().unwrap();
-                            let result = kelvin_to_fahrenheit(am);
-                            println!("{} degrees Kelvin is {} degrees Fahrenheit", am, result);
-                        },
-                        Err(_) => {
-                            println!("Error")
-                        }
-                    }
-                },
-                &_ => todo!(),          
+                Err(e) => {
+                    println!("Error")
+                }
             }
         },
-       
-        Err(_) => {
+
+        Err(e) => {
             println!("Error")
         }
     }
+    // let mut temp_select = Select::new("Select a temperature type: ", TypesOfTemp).prompt();
 }
 
 
