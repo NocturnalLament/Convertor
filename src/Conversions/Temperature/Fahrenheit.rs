@@ -1,5 +1,5 @@
 use inquire::{Select, Text};
-#[path = "TempTypeEnum.rs"] mod TempType;
+
 
 struct Fahrenheit{
     temp: f64,

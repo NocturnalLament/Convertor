@@ -1,5 +1,6 @@
 use inquire::Text;
 #[path = "Conversions/Temperature/InitialData.rs"] mod TempType;
+#[path = "Conversions/Length/InitialData.rs"] mod LengthType;
 enum Conversion {
     Temperature,
     Length,
@@ -17,7 +18,7 @@ fn entry_point() {
                     TempType::temp_entry_point();
                 },
                 "Length" => {
-                    println!("Length");
+                    LengthType::get_length_type();
                 },
                 &_ => todo!(),
             }
