@@ -14,7 +14,7 @@ fn entry_point() {
         Ok(conversion) => {
             match conversion {
                 "Temperature" => {
-                    TempType::get_data_type();
+                    TempType::temp_entry_point();
                 },
                 "Length" => {
                     println!("Length");

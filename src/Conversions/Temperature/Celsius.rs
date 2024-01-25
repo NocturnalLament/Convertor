@@ -5,36 +5,66 @@ pub fn get_celsius()  {
         Ok(am) => {
             // let am: f64 = am.parse().unwrap();
             let float_amount = am.parse::<f64>().unwrap();
-            // let result = celsius_to_fahrenheit(&am);
-            // println!("{} degrees Celsius is {} degrees Fahrenheit", am, result);
-            let mut choices: Vec<String> = Vec::new();
+
+
+            // Flag to control the while loop for continuous prompting
+            let mut celsius_running: bool = true;
+            
+            // Create a new Celsius object with the inputted temperature
+            let c = Celsius::new(float_amount);
+            while celsius_running {
+                celsius_prompt(&c);
+                //Prompt user for whether or not they want to continue
+                let mut continue_running = Select::new("Would you like to continue? (y/n) ", vec!["y", "n"]).prompt();
+                match continue_running {
+                    Ok(ans) => {
+                        match ans {
+                            // If yes, continue the loop
+                            "y" => {
+                                celsius_running = true;
+                            },
+                            // If no, break the loop
+                            "n" => {
+                                celsius_running = false;
+                            },
+                            &_ => todo!(),
+                        }
+                    },
+                    // If error, print error
+                    Err(_) => {
+                        println!("Error")
+                    }
+                }
+            }
+        },
+        Err(_) => {
+            println!("Error")
+        }
+    }
+}
+
+fn celsius_prompt(c: &Celsius) {
+    let mut choices: Vec<String> = Vec::new();
             choices.push("Fahrenheit".to_string());
             choices.push("Kelvin".to_string());
-            let c = Celsius::new(float_amount);
-            let mut temp_select = Select::new("Select a temperature type: ", choices).prompt();
-            match temp_select {
-                Ok(temp) => {
-                    match temp.as_str() {
-                        "Fahrenheit" => {
-                            // let result = celsius_to_fahrenheit(&am.parse::<f64>().unwrap());
-                            // let out = Celsius {
-                            //     temp: float_amount,
-                            //     as_fahrenheit: celsius_to_fahrenheit(&float_amount),
-                            //     as_kelvin: celsius_to_kelvin(&float_amount),
-                            // };
-                            // println!("test: {}", out.temp);
-                            println!("{} degrees Celsius is {} degrees Fahrenheit", c.temp, c.show_fahrenheit());
-                        },
-                        "Kelvin" => {
-                            let result = celsius_to_kelvin(&am.parse::<f64>().unwrap());
-                            println!("{} degrees Celsius is {} degrees Kelvin", am, result);
-                        },
-                        &_ => todo!(),
-                    }
+    let mut temp_select = Select::new("Select a temperature type: ", choices).prompt();
+    match temp_select {
+        Ok(temp) => {
+            match temp.as_str() {
+                "Fahrenheit" => {
+                    // let result = celsius_to_fahrenheit(&am.parse::<f64>().unwrap());
+                    // let out = Celsius {
+                    //     temp: float_amount,
+                    //     as_fahrenheit: celsius_to_fahrenheit(&float_amount),
+                    //     as_kelvin: celsius_to_kelvin(&float_amount),
+                    // };
+                    // println!("test: {}", out.temp);
+                    c.show_fahrenheit();
                 },
-                Err(_) => {
-                    println!("Error")
-                }
+                "Kelvin" => {
+                    c.show_kelvin();
+                },
+                &_ => todo!(),
             }
         },
         Err(_) => {
@@ -58,12 +88,12 @@ impl Celsius {
         }
     }
 
-    fn show_fahrenheit(&self) -> f64 {
-        self.as_fahrenheit
+    fn show_fahrenheit(&self) {
+        println!("{} degrees Celsius is {} degrees Fahrenheit!", self.temp, self.as_fahrenheit);
     }
     
-    fn show_kelvin(&self) -> f64 {
-        self.as_kelvin
+    fn show_kelvin(&self)  {
+        println!("{} degrees Celsius is {} degrees Kelvin!", self.temp, self.as_kelvin);
     }
 }
 
