@@ -1,5 +1,9 @@
-use inquire::{Text, Select};
+use inquire::{Select};
 #[path = "Types/Imperial/Furlong.rs"] mod Furlong;
+#[path = "Types/Metric/Millimeter.rs"] mod Millimeter;
+#[path = "Types/Metric/Centimeters.rs"] mod Centimeters;
+#[path = "Types/Metric/Decimeter.rs"] mod Decimeters;
+#[path = "Types/Metric/Kilometer.rs"] mod Kilometer;
 pub fn get_length_type() {
     /* Actually Getting Whether or not user wants to convert from Metric or Imperial unlike Temperature
     Because of how many different types of units there are for length it makes more sense to have this extra step 
@@ -9,22 +13,25 @@ pub fn get_length_type() {
         Ok(system) => {
             match system {
                 "metric" => {
-                    let test = vec!["millimeters", "centimeters", "meters", "kilometers"];
+                    let test = vec!["millimeters", "centimeters", "meters", "kilometers", "decimeters"];
                     let chosen_item = Select::new("Select a unit: ", test).prompt();
                     match chosen_item {
                         Ok(item) => {
                             match item {
                                 "millimeters" => {
-                                    convert_millimeters();
+                                    Millimeter::convert_millimeters();
                                 },
                                 "centimeters" => {
-                                    println!("centimeters");
+                                    Centimeters::convert_centimeters();
                                 },
                                 "meters" => {
                                     println!("meters");
                                 },
                                 "kilometers" => {
-                                    println!("kilometers");
+                                    Kilometer::convert_kilometer();
+                                },
+                                "decimeters" => {
+                                    Decimeters::convert_decimeter();
                                 },
                                 _ => {
                                     println!("Error");
@@ -80,66 +87,6 @@ pub fn get_length_type() {
     }
 }
 
-fn convert_millimeters() {
-    let mill_conv = Text::new("How many millimeters are you converting? ").prompt();
-    match mill_conv {
-        Ok(mill) => {
-            match mill.parse::<f64>() {
-                Ok(mill_as_f) => {
-                    let mill_as_f = mill_as_f;
-                    let mill = Millimeter::new(mill_as_f);
-                    let convert_to = Select::new("What would you like to convert to? ", vec!["centimeters", "meters", "kilometers"]).prompt();
-                    match convert_to {
-                        Ok(convert_to) => {
-                            match convert_to {
-                                "centimeters" => {
-                                    println!("{} millimeters is {} centimeters.", mill.value, mill.show_centimeters());
-                                },
-                                "meters" => {
-                                    println!("{} millimeters is {} meters.", mill.value, mill.show_meters());
-                                },
-                                "kilometers" => {
-                                    println!("{} millimeters is {} kilometers.", mill.value, mill.show_kilometers());
-                                },
-                                _ => {
-                                    println!("Error");
-                                }
-                            }
-                        },
-                        Err(_) => {
-                            println!("Error");
-                        }
-                    }
-                },
-                Err(_) => {
-                    println!("Error");
-                }
-            }
-        },
-        Err(_) => {
-            println!("Error");
-        }
-    }
-    // match mill_conv {
-    //     Ok(mill) => {
-    //         match mill.parse::<f64>() {
-    //             Ok(mill_as_f) => {
-    //                 let mill_as_f = mill_as_f;
-    //                 let mill = Millimeter::new(mill_as_f);
-    //                 mill.show_centimeters();
-    //                 mill.show_meters();
-    //                 mill.show_kilometers();
-    //             },
-    //             Err(_) => {
-    //                 println!("Error");
-    //             }
-    //         }
-    //     },
-    //     Err(_) => {
-    //         println!("Error");
-    //     }
-    // }
-}
 
 fn convert_furlong() {
     let mut furlong_loop_running: bool = true;
