@@ -1,3 +1,5 @@
+use inquire::{Select, Text};
+
 struct Inch {
     value: f64,
 }
@@ -39,5 +41,15 @@ impl Inch {
 
     fn show_inches(&self) -> f64 {
         self.value
+    }
+}
+
+pub fn inch_prompt() {
+    let inch_loop_running = true;
+    while inch_loop_running {
+        let mut inch_value = Text::new("How many inches are you converting? ").prompt();
+        match inch_value {
+            
+        }
     }
 }
