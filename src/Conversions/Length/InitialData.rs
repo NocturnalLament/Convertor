@@ -11,6 +11,7 @@ use inquire::{Select};
 #[path = "Types/Imperial/Feet.rs"] mod Feet;
 #[path = "Types/Imperial/Mile.rs"] mod Mile;
 #[path = "Types/Imperial/Yard.rs"] mod Yard;
+#[path = "Types/Metric/Meters.rs"] mod Meter;
 pub fn get_length_type() {
     /* Actually Getting Whether or not user wants to convert from Metric or Imperial unlike Temperature
     Because of how many different types of units there are for length it makes more sense to have this extra step 
@@ -32,7 +33,7 @@ pub fn get_length_type() {
                                     Centimeters::convert_centimeters();
                                 },
                                 "meters" => {
-                                    println!("meters");
+                                    Meter::convert_meter();
                                 },
                                 "kilometers" => {
                                     Kilometer::convert_kilometer();
