@@ -9,6 +9,12 @@ use inquire::{Select};
 #[path = "Types/Imperial/Gallon.rs"] mod Gallon;
 #[path = "Types/Imperial/FlOz.rs"] mod FlOz;
 #[path = "Types/Imperial/Cup.rs"] mod Cup;
+#[path = "Types/Metric/Milliliter.rs"] mod Milliliter;
+#[path = "Types/Metric/Milligram.rs"] mod Milligram;
+#[path = "Types/Metric/Liter.rs"] mod Liter;
+#[path = "Types/Metric/Gram.rs"] mod Gram;
+#[path = "Types/Metric/Deciliter.rs"] mod Deciliter;
+#[path = "Types/Metric/Centiliter.rs"] mod Centiliter;
 // Function to get the type of volume
 
 fn get_imperial() {
@@ -56,49 +62,82 @@ fn get_imperial() {
 
 fn get_metric() {
     // Prompt the user to select a volume type
-    let volume_select = Select::new("Select a volume type: ", vec!["Milliliter", "Liter", "Centiliter", "Deciliter"]).prompt();
+    let volume_select = Select::new("Select a volume type: ", vec!["Milliliter", "Milligram", "Liter", "Centiliter", "Deciliter"]).prompt();
+    match volume_select {
+        Ok(volume) => {
+            match volume {
+                "Milliliter" => {
+                    Milliliter::convert_milliliter();
+                },
+                "Milligram" => {
+                    Milligram::convert_milligram();
+                },
+                "Liter" => {
+                    Liter::convert_liter();
+                },
+                "Gram" => {
+                    Gram::convert_gram();
+                }
+                "Centiliter" => {
+                    Centiliter::convert_centiliter();
+                },
+                "Deciliter" => {
+                    Deciliter::convert_deciliter();
+                },
+                &_ => {
+                    println!("Error");
+                }
+            }
+        },
+        Err(e) => {
+            println!("Error: {}", e);
+        }
+    
+    }
 }
 
 pub fn volume_entry_point() {
     // Flag to keep the program running;
-    let mut prog_running: bool = true;
-    // Keep running the program until the user decides to stop
-    while prog_running {
-        // Get the volume type from the user
-        let volume_type = Select::new("What unit type are you converting from?", vec!["Imperial", "Metric"]).prompt();
-        match volume_type {
-            Ok(ans) => {
-                // Route the user to the appropriate volume type
-                match ans {
+    let mut loop_flag = true;
+    while loop_flag {
+        // Prompt the user to select a volume type
+        let volume_select = Select::new("Select a volume type: ", vec!["Imperial", "Metric"]).prompt();
+        // Return the selected volume type or the error if there is one
+        match volume_select {
+            //If the user selects a volume type, match the volume type
+            Ok(volume) => {
+                match volume {
                     "Imperial" => {
                         get_imperial();
+                    },
+                    "Metric" => {
+                        get_metric();
                     },
                     &_ => {
                         println!("Error");
                     }
                 }
-        },
-        Err(_) => {
-            println!("Error");
+            },
+            Err(e) => {println!("Error: {}", e)},
         }
-    
-}
-let continue_loop = Select::new("Would you like to get another volume? (y/n) ", vec!["y", "n"]).prompt();
-match continue_loop {
-    Ok(ans) => {
-        match ans {
-            "y" => {
-                prog_running = true;
+        let continue_loop = Select::new("Would you like to get another volume? (y/n) ", vec!["y", "n"]).prompt();
+        match continue_loop {
+            Ok(ans) => {
+                match ans {
+                    "y" => {
+                        continue;
+                    },
+                    "n" => {
+                        loop_flag = false;
+                    },
+                    _ => {
+                        println!("Error");
+                    }
+                }
             },
-            "n" => {
-                prog_running = false;
-            },
-            &_ => {
+            Err(_) => {
                 println!("Error");
             }
         }
-    },
-    Err(_) => {
-        println!("Error");
+    }
 }
-}}}

@@ -1,5 +1,6 @@
 // Import the Text struct from the inquire crate
 use inquire::Text;
+use color_print::cprintln;
 
 // Import the temperature and length conversion modules
 #[path = "Conversions/Temperature/InitialData.rs"] mod TempType;
@@ -61,6 +62,7 @@ fn entry_point() {
                 "Open Source Projects We Love 💖" => {
                     println!("We love the following open source projects:");
                     println!("Inquire - https://github.com/mikaelmello/inquire");
+                    println!("Color Print - https://gitlab.com/dajoha/color-print")
                 },
                 
                 &_ => todo!(),
@@ -76,6 +78,7 @@ fn entry_point() {
 fn main() {
     // Print a welcome message
     println!("Welcome to convertor! - Version {}", env!("CARGO_PKG_VERSION"));
+    cprintln!("<red>PARDON OUR JANK- STILL IN DEVELOPMENT</red>");
     println!("2024 NocturnalLament");
     let mut prog_running: bool = true;
     while prog_running {
