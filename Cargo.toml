@@ -1,7 +1,8 @@
 [package]
 name = "Convertor"
-version = "0.1.0"
+version = "0.1.5"
 edition = "2021"
+authors = ["NocturnalLament]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

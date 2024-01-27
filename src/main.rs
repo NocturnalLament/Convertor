@@ -21,7 +21,7 @@ fn entry_point() {
                     let mut loop_running: bool = true;
                     while loop_running {
                         LengthType::get_length_type();
-                        let mut continue_running = Text::new("Would you like to get anotherv length?? (y/n) ").prompt();
+                        let mut continue_running = Text::new("Would you like to get another length?? (y/n) ").prompt();
                         match continue_running {
                             Ok(ans) => {
                                 match ans.as_str() {
@@ -50,6 +50,8 @@ fn entry_point() {
 }
 
 fn main() {
+    println!("Welcome to convertor!");
+    println!("2024 NocturnalLament");
     let mut prog_running: bool = true;
     while prog_running {
         entry_point();
