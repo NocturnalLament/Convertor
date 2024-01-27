@@ -50,7 +50,7 @@ fn entry_point() {
 }
 
 fn main() {
-    println!("Welcome to convertor!");
+    println!("Welcome to convertor! - Version {}", env!("CARGO_PKG_VERSION"));
     println!("2024 NocturnalLament");
     let mut prog_running: bool = true;
     while prog_running {
