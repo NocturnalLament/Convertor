@@ -1,9 +1,16 @@
+use std::path;
+
 use inquire::{Select};
 #[path = "Types/Imperial/Furlong.rs"] mod Furlong;
 #[path = "Types/Metric/Millimeter.rs"] mod Millimeter;
 #[path = "Types/Metric/Centimeters.rs"] mod Centimeters;
 #[path = "Types/Metric/Decimeter.rs"] mod Decimeters;
 #[path = "Types/Metric/Kilometer.rs"] mod Kilometer;
+#[path = "Types/Imperial/Chain.rs"] mod Chain;
+#[path = "Types/Imperial/Inch.rs"] mod Inch;
+#[path = "Types/Imperial/Feet.rs"] mod Feet;
+#[path = "Types/Imperial/Mile.rs"] mod Mile;
+#[path = "Types/Imperial/Yard.rs"] mod Yard;
 pub fn get_length_type() {
     /* Actually Getting Whether or not user wants to convert from Metric or Imperial unlike Temperature
     Because of how many different types of units there are for length it makes more sense to have this extra step 
@@ -52,19 +59,19 @@ pub fn get_length_type() {
                                     convert_furlong();
                                 },
                                 "Chains" => {
-                                    println!("Chains");
+                                    Chain::convert_chain();
                                 },
                                 "inches" => {
-                                    convert_inch();
+                                    Inch::inch_loop();
                                 },
                                 "feet" => {
-                                    println!("feet");
+                                    Feet::convert_feet();
                                 },
                                 "yards" => {
-                                    println!("yards");
+                                    Yard::convert_yard();
                                 },
                                 "miles" => {
-                                    println!("miles");
+                                    Mile::convert_miles();
                                 },
                                 _ => {
                                     println!("Error");
@@ -112,26 +119,3 @@ fn convert_furlong() {
     }
 }
 
-fn convert_inch() {
-    let mut inch_loop_running: bool = true;
-    while inch_loop_running {
-        println!("test");
-        let mut continue_running = Select::new("Would you like to continue and convert to another amount? (y/n) ", vec!["y", "n"]).prompt();
-        match continue_running {
-            Ok(ans) => {
-                match ans {
-                    "y" => {
-                        inch_loop_running = true;
-                    },
-                    "n" => {
-                        inch_loop_running = false;
-                    },
-                    &_ => todo!(),
-                }
-            },
-            Err(_) => {
-                println!("Error")
-            }
-        }
-    }
-}

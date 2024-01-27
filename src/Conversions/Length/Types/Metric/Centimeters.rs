@@ -112,7 +112,7 @@ fn convert_centimeters_metric() {
                 Ok(cent_val) => {
                     let cent = Centimeters::new(cent_val);
                     let choice = Select::new("Select what you want to convert to: ", vec!["Millimeter", "Meter", "Kilometer", "Decimeter"]).prompt();
-                    match (choice) {
+                    match choice {
                         Ok(choice) => {
                             match choice {
                                 "Millimeter" => {
