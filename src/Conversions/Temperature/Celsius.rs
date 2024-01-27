@@ -43,6 +43,7 @@ pub fn get_celsius()  {
     }
 }
 
+//Prompt for celsius conversion
 fn celsius_prompt(c: &Celsius) {
     let mut choices: Vec<String> = Vec::new();
             choices.push("Fahrenheit".to_string());
@@ -51,14 +52,8 @@ fn celsius_prompt(c: &Celsius) {
     match temp_select {
         Ok(temp) => {
             match temp.as_str() {
+                //match to and display result
                 "Fahrenheit" => {
-                    // let result = celsius_to_fahrenheit(&am.parse::<f64>().unwrap());
-                    // let out = Celsius {
-                    //     temp: float_amount,
-                    //     as_fahrenheit: celsius_to_fahrenheit(&float_amount),
-                    //     as_kelvin: celsius_to_kelvin(&float_amount),
-                    // };
-                    // println!("test: {}", out.temp);
                     c.show_fahrenheit();
                 },
                 "Kelvin" => {

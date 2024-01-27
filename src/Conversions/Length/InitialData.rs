@@ -1,5 +1,3 @@
-use std::path;
-
 use inquire::{Select};
 #[path = "Types/Imperial/Furlong.rs"] mod Furlong;
 #[path = "Types/Metric/Millimeter.rs"] mod Millimeter;
@@ -20,6 +18,7 @@ pub fn get_length_type() {
     match SystemsOfMeasurement {
         Ok(system) => {
             match system {
+                //Matches user to metric or imperial
                 "metric" => {
                     let test = vec!["millimeters", "centimeters", "meters", "kilometers", "decimeters"];
                     let chosen_item = Select::new("Select a unit: ", test).prompt();

@@ -49,6 +49,7 @@ pub fn get_kelvin() {
             let mut temp_select = Select::new("Select a temperature type to convert to: ", choices).prompt();
             match temp_select {
                 Ok(temp) => {
+                    //Match the user's selection and display results
                     match temp.as_str() {
                         "Fahrenheit" => {
                             println!("{} degrees Kelvin is {} degrees Fahrenheit", kelvin.value, kelvin.show_fahrenheit());

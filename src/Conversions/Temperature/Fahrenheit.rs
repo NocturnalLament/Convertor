@@ -1,26 +1,32 @@
 use inquire::{Select, Text};
 
-
+// Define a struct to represent a temperature in Fahrenheit
 struct Fahrenheit{
-    temp: f64,
-    as_celsius: f64,
-    as_kelvin: f64,
+    temp: f64, // The temperature in Fahrenheit
+    as_celsius: f64, // The equivalent temperature in Celsius
+    as_kelvin: f64, // The equivalent temperature in Kelvin
 }
 
+// Implement methods for the Fahrenheit struct
 impl Fahrenheit {
+    // Define a constructor for the Fahrenheit struct
     fn new(temp: f64) -> Self {
         Self {
-            temp,
-            as_celsius: fahrenheit_to_celsius(&temp),
-            as_kelvin: fahrenheit_to_kelvin(temp),
+            temp, // Set the Fahrenheit temperature
+            as_celsius: fahrenheit_to_celsius(&temp), // Convert the Fahrenheit temperature to Celsius
+            as_kelvin: fahrenheit_to_kelvin(temp), // Convert the Fahrenheit temperature to Kelvin
         }
     }
 
+    // Define a method to print the Fahrenheit temperature in Kelvin
     fn show_kelvin(&self) {
+        // Print the Fahrenheit temperature and its equivalent in Kelvin
         println!("{} degrees Fahrenheit is {} degrees Kelvin!", self.temp, self.as_kelvin);
     }
 
+    // Define a method to print the Fahrenheit temperature in Celsius
     fn show_celsius(&self) {
+        // Print the Fahrenheit temperature and its equivalent in Celsius
         println!("{} degrees Fahrenheit is {} degrees Celsius!", self.temp, self.as_celsius);
     }
 }
