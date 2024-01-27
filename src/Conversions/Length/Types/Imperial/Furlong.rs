@@ -48,14 +48,47 @@ impl Furlong {
     }
 }
 
+fn display_furlong_conversion(f: &Furlong, unit: &str) {
+    match unit {
+        "Chain" => {
+            println!("{} furlongs is {} chains.", f.value, f.show_chain());
+        },
+        "Feet" => {
+            println!("{} furlongs is {} feet.", f.value, f.show_feet());
+        },
+        "Inch" => {
+            println!("{} furlongs is {} inches.", f.value, f.show_inch());
+        },
+        "Mile" => {
+            println!("{} furlongs is {} miles.", f.value, f.show_mile());
+        },
+        "Yard" => {
+            println!("{} furlongs is {} yards.", f.value, f.show_yard());
+        },
+        "Centimeter" => {
+            println!("{} furlongs is {} centimeters.", f.value, f.show_centimeters());
+        },
+        "Meter" => {
+            println!("{} furlongs is {} meters.", f.value, f.show_meters());
+        },
+        "Kilometer" => {
+            println!("{} furlongs is {} kilometers.", f.value, f.show_kilometers());
+        },
+        "Decimeter" => {
+            println!("{} furlongs is {} decimeters.", f.value, f.show_decimeters());
+        },
+        _ => todo!(),
+    }
+}
+
 pub fn furlong_prompt() {
     let amount = Text::new("Enter the amount of furlongs you want to convert to other units of measurement: ").prompt();
     match amount {
         Ok(amount) => {
             match amount.parse::<f64>() {
                 Ok(amount_f) => {
-                    let amount = Furlong::new(amount_f);
-                    display_furlong(&amount);
+                    display_furlong_conversion(&Furlong::new(amount_f), "Chain");
+                    
                 }
 
                 Err(_) => {

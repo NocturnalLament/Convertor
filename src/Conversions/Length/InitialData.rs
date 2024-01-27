@@ -1,5 +1,17 @@
-use inquire::{Text, Select};
+use std::path;
+
+use inquire::{Select};
 #[path = "Types/Imperial/Furlong.rs"] mod Furlong;
+#[path = "Types/Metric/Millimeter.rs"] mod Millimeter;
+#[path = "Types/Metric/Centimeters.rs"] mod Centimeters;
+#[path = "Types/Metric/Decimeter.rs"] mod Decimeters;
+#[path = "Types/Metric/Kilometer.rs"] mod Kilometer;
+#[path = "Types/Imperial/Chain.rs"] mod Chain;
+#[path = "Types/Imperial/Inch.rs"] mod Inch;
+#[path = "Types/Imperial/Feet.rs"] mod Feet;
+#[path = "Types/Imperial/Mile.rs"] mod Mile;
+#[path = "Types/Imperial/Yard.rs"] mod Yard;
+#[path = "Types/Metric/Meters.rs"] mod Meter;
 pub fn get_length_type() {
     /* Actually Getting Whether or not user wants to convert from Metric or Imperial unlike Temperature
     Because of how many different types of units there are for length it makes more sense to have this extra step 
@@ -9,41 +21,25 @@ pub fn get_length_type() {
         Ok(system) => {
             match system {
                 "metric" => {
-                    let test = vec!["millimeters", "centimeters", "meters", "kilometers"];
+                    let test = vec!["millimeters", "centimeters", "meters", "kilometers", "decimeters"];
                     let chosen_item = Select::new("Select a unit: ", test).prompt();
                     match chosen_item {
                         Ok(item) => {
                             match item {
                                 "millimeters" => {
-                                    let mill_conv = Text::new("How many millimeters are you converting? ").prompt();
-                                    // match mill_conv {
-                                    //     Ok(mill) => {
-                                    //         match mill.parse::<f64>() {
-                                    //             Ok(mill_as_f) => {
-                                    //                 let mill_as_f = mill_as_f;
-                                    //                 let mill = Millimeter::new(mill_as_f);
-                                    //                 mill.show_centimeters();
-                                    //                 mill.show_meters();
-                                    //                 mill.show_kilometers();
-                                    //             },
-                                    //             Err(_) => {
-                                    //                 println!("Error");
-                                    //             }
-                                    //         }
-                                    //     },
-                                    //     Err(_) => {
-                                    //         println!("Error");
-                                    //     }
-                                    // }
+                                    Millimeter::convert_millimeters();
                                 },
                                 "centimeters" => {
-                                    println!("centimeters");
+                                    Centimeters::convert_centimeters();
                                 },
                                 "meters" => {
-                                    println!("meters");
+                                    Meter::convert_meter();
                                 },
                                 "kilometers" => {
-                                    println!("kilometers");
+                                    Kilometer::convert_kilometer();
+                                },
+                                "decimeters" => {
+                                    Decimeters::convert_decimeter();
                                 },
                                 _ => {
                                     println!("Error");
@@ -61,32 +57,22 @@ pub fn get_length_type() {
                         Ok(item) => {
                             match item {
                                 "Furlong" => {
-                                    let mut furlong_loop_running: bool = true;
-                                                    while furlong_loop_running {
-                                                        Furlong::furlong_prompt()
-                                                        let mut continue_running = Select::new("Would you like to continue and convert another furlong amount? (y/n) ", vec!["y", "n"]).prompt();
-                                                    }
-                                            }
-                                        },
-                                        Err(_) => {
-                                            println!("Error");
-                                        }
-                                    }
+                                    convert_furlong();
                                 },
                                 "Chains" => {
-                                    println!("Chains");
+                                    Chain::convert_chain();
                                 },
                                 "inches" => {
-                                    println!("inches");
+                                    Inch::inch_loop();
                                 },
                                 "feet" => {
-                                    println!("feet");
+                                    Feet::convert_feet();
                                 },
                                 "yards" => {
-                                    println!("yards");
+                                    Yard::convert_yard();
                                 },
                                 "miles" => {
-                                    println!("miles");
+                                    Mile::convert_miles();
                                 },
                                 _ => {
                                     println!("Error");
@@ -102,12 +88,35 @@ pub fn get_length_type() {
                     println!("Error");
                 }
             }
-            
         },
         Err(_) => {
             println!("Error");
         }
-        
+    }
+}
+
+
+fn convert_furlong() {
+    let mut furlong_loop_running: bool = true;
+    while furlong_loop_running {
+        Furlong::furlong_prompt();
+        let mut continue_running = Select::new("Would you like to continue and convert to another amount? (y/n) ", vec!["y", "n"]).prompt();
+        match continue_running {
+            Ok(ans) => {
+                match ans {
+                    "y" => {
+                        furlong_loop_running = true;
+                    },
+                    "n" => {
+                        furlong_loop_running = false;
+                    },
+                    &_ => todo!(),
+                }
+            },
+            Err(_) => {
+                println!("Error")
+            }
+        }
     }
 }
 

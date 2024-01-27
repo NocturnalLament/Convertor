@@ -18,7 +18,27 @@ fn entry_point() {
                     TempType::temp_entry_point();
                 },
                 "Length" => {
-                    LengthType::get_length_type();
+                    let mut loop_running: bool = true;
+                    while loop_running {
+                        LengthType::get_length_type();
+                        let mut continue_running = Text::new("Would you like to get anotherv length?? (y/n) ").prompt();
+                        match continue_running {
+                            Ok(ans) => {
+                                match ans.as_str() {
+                                    "y" => {
+                                        loop_running = true;
+                                    },
+                                    "n" => {
+                                        loop_running = false;
+                                    },
+                                    &_ => todo!(),
+                                }
+                            },
+                            Err(_) => {
+                                println!("Error")
+                            }
+                        }
+                    }
                 },
                 &_ => todo!(),
             }
